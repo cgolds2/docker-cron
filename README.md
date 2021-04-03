@@ -38,3 +38,10 @@ To change the actual job performed just change the content of the *script.sh* fi
 
 
 `echo "$(date): executed script" >> /var/log/cron.log 2>&1`
+
+
+
+Gen the key
+
+ssh-keygen -t rsa
+ssh-copy-id demo@198.51.100.0

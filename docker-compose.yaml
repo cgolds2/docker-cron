@@ -1,0 +1,18 @@
+version: "3"
+services:
+  serversync:
+      container_name: serversync
+      build:
+          context: ./docker-cron
+          dockerfile: ./Dockerfile
+          args:
+              PERIOD: '0 9 * * *'
+      ports:
+          - 23:23
+      environment:
+          - DEST=server@localhost:/path
+      volumes:
+          - logs:/logs
+          - /src/:/src
+          - ~/.ssh:/root/.ssh
+      restart: unless-stopped

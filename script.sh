@@ -1,1 +1,1 @@
-echo "$(date): executed script" >> /var/log/cron.log 2>&1
+touch /logs/cron.log && echo "" > /logs/cron.log && rsync -aP -e "ssh -i /root/.ssh/id_rsa" /src/* "$DEST" >> /logs/cron.log 2>&1

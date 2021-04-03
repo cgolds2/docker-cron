@@ -1,11 +1,15 @@
 FROM ubuntu:latest
+ARG PERIOD
 
 # Install cron
 RUN apt-get update
 RUN apt-get install cron
-
+RUN apt-get -y install rsync
+RUn apt-get -y install openssh-client
 # Add crontab file in the cron directory
 ADD crontab /etc/cron.d/simple-cron
+
+RUN sed -i 's/$PERIOD/'"$PERIOD"'/' /etc/cron.d/simple-cron
 
 # Add shell script and grant execution rights
 ADD script.sh /script.sh
