@@ -2,17 +2,25 @@ version: "3"
 services:
   serversync:
       container_name: serversync
-      build:
+      build: 
           context: ./docker-cron
           dockerfile: ./Dockerfile
           args:
+              # cron arg to be used in crontab file
               PERIOD: '0 9 * * *'
+              # desination location for rsync
+              DEST: 'user@ip:/folder'
       ports:
           - 23:23
-      environment:
-          - DEST=server@localhost:/path
+          - 873:873
       volumes:
-          - logs:/logs
-          - /src/:/src
+          # log file location
+          - /folder/serversync/:/logs
+          # source folder for rsync
+          - /folder/files/:/src
+          # ssh creds 
           - ~/.ssh:/root/.ssh
       restart: unless-stopped
+      logging:
+          options:
+              max-size: 50m

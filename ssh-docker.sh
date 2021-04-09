@@ -1,0 +1,1 @@
+docker exec -it `docker ps | grep serversync | awk '{print $1}'` /bin/bash
